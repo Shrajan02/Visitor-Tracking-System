@@ -11,6 +11,7 @@ import java.util.Optional;
 public class VisitorServiceImpl implements VisitorService {
     private VisitorDAO dao;
 
+    // constructor injection
     public VisitorServiceImpl(VisitorDAO dao) {
         this.dao = dao;
     }
@@ -41,7 +42,7 @@ public class VisitorServiceImpl implements VisitorService {
             Visitor foundVisitor = o.get();
             return foundVisitor;
         }
-        throw new VisitorNotFoundException("Book with id " + id + " NOT found!");
+        throw new VisitorNotFoundException("Visitor with id " + id + " NOT found!");
     }
 
     @Override
@@ -50,11 +51,11 @@ public class VisitorServiceImpl implements VisitorService {
         if (o.isPresent()) {
             return o.get();
         }
-        throw new VisitorNotFoundException("Book with email " + email + " NOT found!");
+        throw new VisitorNotFoundException("Visitor with email " + email + " NOT found!");
     }
 
     @Override
-    public boolean deleteVisitorById(int id){
-        return this.dao.deleteVisitor(id);
+    public boolean deleteVisitor(int id){
+        return this.dao.delete(id);
     }
 }

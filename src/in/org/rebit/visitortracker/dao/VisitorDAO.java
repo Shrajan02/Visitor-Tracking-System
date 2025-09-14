@@ -16,5 +16,5 @@ public interface VisitorDAO {
 
     Optional<Visitor> findByEmail(String email);
 
-    boolean deleteVisitor(int id);
+    boolean delete(int id);
 }

@@ -1,7 +1,7 @@
 package in.org.rebit.visitortracker.entity;
 
 public class Visitor {
-    private int count;
+    static private int count;
     private int id;
     private String firstName;
     private String lastName;

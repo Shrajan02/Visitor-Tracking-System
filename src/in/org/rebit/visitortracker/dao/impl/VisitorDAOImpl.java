@@ -49,7 +49,7 @@ public class VisitorDAOImpl implements VisitorDAO {
     }
 
     @Override
-    public boolean deleteVisitor(int id) {
+    public boolean delete(int id) {
         Iterator<Visitor> i = this.visitors.iterator();
         while (i.hasNext()) {
             Visitor nextVisitor = i.next();

@@ -16,5 +16,5 @@ public interface VisitorService {
 
     Visitor findVisitorByEmail(String email) throws VisitorNotFoundException;
 
-    boolean deleteVisitorById(int id);
+    boolean deleteVisitor(int id);
 }

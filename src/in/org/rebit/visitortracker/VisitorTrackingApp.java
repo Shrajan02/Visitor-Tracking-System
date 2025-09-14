@@ -97,7 +97,7 @@ public class VisitorTrackingApp {
                         case 6:
                             view.printMessage("Enter the visitor ID to delete = ");
                             int id = sc.nextInt();
-                            boolean visitorToBeDeleted = service.deleteVisitorById(id);
+                            boolean visitorToBeDeleted = service.deleteVisitor(id);
                             if (visitorToBeDeleted) {
                                 view.printMessage("Visitor details with " + id + "deleted successfully!", true);
                             }
