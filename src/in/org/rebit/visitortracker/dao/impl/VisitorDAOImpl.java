@@ -41,7 +41,7 @@ public class VisitorDAOImpl implements VisitorDAO {
     @Override
     public Optional<Visitor> findByEmail(String email) {
         for (Visitor foundVisitor: this.visitors) {
-            if (foundVisitor != null && Objects.equals(foundVisitor.getEmailID(), email)) {
+            if (foundVisitor != null && foundVisitor.getEmailID().equals(email)) {
                 return Optional.of(foundVisitor);
             }
         }

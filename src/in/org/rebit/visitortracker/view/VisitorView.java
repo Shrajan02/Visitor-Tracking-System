@@ -46,16 +46,19 @@ public class VisitorView {
     public void printVisitors(List<Visitor> allVisitors)
     {
         showHeader();
-        for (Visitor v : allVisitors) {
-            printVisitor(v);
-        }
+        allVisitors.forEach(System.out::println);  // using method reference
+        /*
+          for (Visitor v : allVisitors) {
+             printVisitor(v);
+          }
+        */
     }
 
     private void showHeader()
     {
-        printMessage("===============================================\n");
+        printMessage("=================================================================================\n");
         printMessage("Visitor ID \t First Name \t Last Name \t Visitee \t Email \t Phone No \t Purpose\n");
-        printMessage("===============================================\n");
+        printMessage("=================================================================================\n");
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class VisitorServiceImpl implements VisitorService {
-    private VisitorDAO dao;
+    private final VisitorDAO dao;
 
     // constructor injection
     public VisitorServiceImpl(VisitorDAO dao) {
@@ -38,20 +38,21 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     public Visitor findVisitorById(int id) throws VisitorNotFoundException {
         Optional<Visitor> o = this.dao.findById(id);
+        Visitor visitor = o.orElseThrow(() -> new VisitorNotFoundException("Visitor with id " + id + " NOT found!"));
+        return visitor;
+        /*
         if (o.isPresent()) {
             Visitor foundVisitor = o.get();
             return foundVisitor;
         }
         throw new VisitorNotFoundException("Visitor with id " + id + " NOT found!");
+         */
     }
 
     @Override
     public Visitor findVisitorByEmail(String email) throws VisitorNotFoundException {
         Optional<Visitor> o = this.dao.findByEmail(email);
-        if (o.isPresent()) {
-            return o.get();
-        }
-        throw new VisitorNotFoundException("Visitor with email " + email + " NOT found!");
+        return o.orElseThrow(() -> new VisitorNotFoundException("Visitor with email " + email + " NOT found!"));
     }
 
     @Override
