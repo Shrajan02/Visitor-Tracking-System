@@ -23,10 +23,10 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public List<Visitor> showAllVisitors() throws VisitorNotFoundException {
-        if (!this.dao.showAll().isEmpty()) {
-            return this.dao.showAll();
+        List<Visitor> visitors = this.dao.showAll();
+        if (!visitors.isEmpty()) {
+            return visitors;
         }
-
         throw new VisitorNotFoundException("No visitor details found! Add visitor details");
     }
 

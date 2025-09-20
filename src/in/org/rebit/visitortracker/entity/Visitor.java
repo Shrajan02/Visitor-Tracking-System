@@ -76,4 +76,13 @@ public class Visitor {
     public void setPurpose(String purpose) {
         this.purpose = purpose;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName +
+                " | Visiting: " + visitee +
+                " | Email: " + emailID +
+                " | Contact: " + contactNumber +
+                " | Purpose: " + purpose;
+    }
 }

@@ -26,14 +26,18 @@ public class VisitorView {
 
     public void printMenu () {
         String menu = """
+               ============== MENU =================
                     1. ADD NEW VISITOR
                     2. DISPLAY ALL VISITOR DETAILS
                     3. COUNT OF TOTAL VISITORS
                     4. FIND VISITOR BY ID
                     5. FIND VISITOR BY EMAIL
                     6. DELETE VISITOR
+                    7. FIND ALL VISITORS WHO WANT TO MEET A SPECIFIC VISITEE
+                    8. COUNT VISITORS WHOSE NAME STARTS WITH A SPECIFIC LETTER
+                    9. PARTITIONING VISITORS BASED ON FIRST NAME'S LETTER
                     -1. EXIT
-                """;
+               """;
 
         printMessage(menu);
     }
@@ -46,12 +50,7 @@ public class VisitorView {
     public void printVisitors(List<Visitor> allVisitors)
     {
         showHeader();
-        allVisitors.forEach(System.out::println);  // using method reference
-        /*
-          for (Visitor v : allVisitors) {
-             printVisitor(v);
-          }
-        */
+        allVisitors.forEach(visitor -> printVisitor(visitor));
     }
 
     private void showHeader()

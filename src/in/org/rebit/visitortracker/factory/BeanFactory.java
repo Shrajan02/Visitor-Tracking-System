@@ -5,7 +5,7 @@ import in.org.rebit.visitortracker.dao.impl.VisitorDAOImpl;
 import in.org.rebit.visitortracker.service.VisitorService;
 import in.org.rebit.visitortracker.service.impl.VisitorServiceImpl;
 
-public class BeanFactory {
+public class BeanFactory implements AutoCloseable {
     public VisitorDAO getVisitorDAO(){
         VisitorDAO dao = new VisitorDAOImpl();
         return dao;
@@ -15,5 +15,10 @@ public class BeanFactory {
     {
         VisitorService service = new VisitorServiceImpl(getVisitorDAO());
         return service;
+    }
+
+    @Override
+    public void close() {
+        System.out.println("Closing all the resources");
     }
 }

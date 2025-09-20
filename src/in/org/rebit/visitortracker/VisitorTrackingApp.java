@@ -4,6 +4,7 @@ import in.org.rebit.visitortracker.entity.Visitor;
 import in.org.rebit.visitortracker.exception.VisitorNotFoundException;
 import in.org.rebit.visitortracker.factory.BeanFactory;
 import in.org.rebit.visitortracker.service.VisitorService;
+import in.org.rebit.visitortracker.util.VisitorUtil;
 import in.org.rebit.visitortracker.view.MessageType;
 import in.org.rebit.visitortracker.view.VisitorView;
 
@@ -13,13 +14,12 @@ import java.util.Scanner;
 
 public class VisitorTrackingApp {
     public static void main(String[] args) {
-        VisitorView view = new VisitorView();
-        BeanFactory factory = new BeanFactory();
-        VisitorService service = factory.getVisitorService();
-
         // using ARM -> resources automatically close after completion
-        try (Scanner sc = new Scanner(System.in)) {
+        try (Scanner sc = new Scanner(System.in);
+             BeanFactory factory = new BeanFactory();) {
             int choice;
+            VisitorView view = new VisitorView();
+            VisitorService service = factory.getVisitorService();
             do {
                 view.printMenu();
                 view.printMessage("Enter your choice = ");
@@ -99,13 +99,40 @@ public class VisitorTrackingApp {
                             int id = sc.nextInt();
                             boolean visitorToBeDeleted = service.deleteVisitor(id);
                             if (visitorToBeDeleted) {
-                                view.printMessage("Visitor details with " + id + "deleted successfully!", true);
+                                view.printMessage("Visitor " + id + " details deleted successfully!", true);
                             }
                             else {
                                 view.printMessage("Error! No visitor details found!", true, MessageType.ERROR);
                             }
                             break;
 
+                        // SEARCH VISITORS BY WHOM THEY WANT TO MEET
+                        case 7:
+                            view.printMessage("Enter the person whom visitors went to meet = ");
+                            String visiteeToMeet = sc.next();
+                            try {
+                                List<Visitor> allVisitors = service.showAllVisitors();
+                                List<Visitor> searchedVisitors = VisitorUtil.searchVisitorsByCriteria(allVisitors, p -> p.getVisitee().equals(visiteeToMeet));
+                                view.printVisitors(searchedVisitors);
+                            }
+                            catch (VisitorNotFoundException e) {
+                                view.printMessage("Error: " + e.getMessage(), true, MessageType.ERROR);
+                            }
+                            break;
+
+                        // COUNT VISITORS WHOSE NAME STARTS WITH
+                        case 8:
+                            view.printMessage("Enter the letter you want the visitor's name to start with = ");
+                            String nameStartsWith = sc.next();
+                            try {
+                                List<Visitor> allVisitors = service.showAllVisitors();
+                                int countSearchedVisitors = VisitorUtil.countVisitorsByCriteria(allVisitors, p -> p.getFirstName().startsWith(nameStartsWith));
+                                view.printMessage("Total visitors whose name starts with " + nameStartsWith + " = " + countSearchedVisitors, true);
+                            }
+                            catch (VisitorNotFoundException e) {
+                                view.printMessage("Error: " + e.getMessage(), true, MessageType.ERROR);
+                            }
+                            break;
                          // EXIT
                         case -1:
                             view.printMessage("Thank you for checking visitor details!", true);
